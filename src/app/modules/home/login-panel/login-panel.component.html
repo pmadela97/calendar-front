@@ -1,0 +1,30 @@
+
+<div id = "loginPanel" class="bg-white rounded-3 p-4 mt-sm-0 mt-lg-5">
+    <form [formGroup]="loginForm"(ngSubmit)="loginForm.valid && login()">
+        <div *ngIf="errorMessage !=''" id="errorLoginMessageContainer" class="alert alert-danger"  role="alert">
+         {{errorMessage}}
+        </div>
+        <input type="text" class="form-control mb-2" id="usernameInput" placeholder="Nazwa użytkownika" formControlName="usernameInput"/>
+        <div class="alet alert-danger" *ngIf="usernameInput?.invalid && (usernameInput?.dirty || usernameInput?.touched)">
+            <div *ngIf="usernameInput?.errors?.required">Pole wymagane</div>
+          </div>
+        <br>
+        <input type="password" class="form-control mb-2" id="passwordInput" placeholder="Hasło" formControlName = "passwordInput" />
+        <div class="alet alert-danger" *ngIf="passwordInput?.invalid && (passwordInput?.dirty || passwordInput?.touched)">
+            <div *ngIf="passwordInput?.errors?.required">Pole wymagane</div>
+          </div>
+        <br>
+        <button type="submit" [disabled]="!loginForm.valid"class="btn btn-outline-success btn-lg w-100">Zaloguj</button>
+        <br>
+        <span>Zapomniałeś hasła?</span>
+        <hr>
+        <button id="btn" class="btn btn-outline-info btn-lg w-100" (click)="openRegistrationPanel(RegPanel)">Zarejestruj</button>
+    </form>
+
+    
+
+
+    <ng-template #RegPanel let-modal>
+<app-registration-panel></app-registration-panel>
+    </ng-template>
+    
