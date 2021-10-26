@@ -4,18 +4,22 @@
         <button type ="button" class="btn-close" (click)='closeRegistrationPanel()'></button>
     </div>
     <hr>
-    <form>
-        <div id="errorLoginMessageContainer" class="alert alert-danger visually-hidden" role="alert">    
+    <div>
+       <div *ngIf="errorMessage !=''" id="errorLoginMessageContainer" class="alert alert-danger"  role="alert">
+         {{errorMessage}}
         </div>
-        <input type="text" class="form-control" id="usernameInput" placeholder="Nazwa użytkownika" required pattern="[A-Za-z0-9]{8,16}" title="Musi zawierać co najmniej 8 znaków, maksymalnie 16, i nie zawierać znaków szczególnych"/>
+        <div *ngIf="successMessage !=''" id="successMessageContainer" class="alert alert-success"  role="alert">
+          {{successMessage}}
+         </div>
+        <input type="text" class="form-control" [(ngModel)] = "username"placeholder="Nazwa użytkownika" />
         <br>
-        <input type="password" class="form-control" id="passwordInput" placeholder="Hasło" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" required title="Musi zawierać co najmniej jedną cyfrę, jedną wielką i małą literę, jeden znak szczególny oraz posiadać co najmniej 8 znaków, maksymalnie 16." />
+        <input type="password" autocomplete ="false" class="form-control" [(ngModel)] = "password" placeholder="Hasło"/>
         <br>
-        <input type="text" class="form-control bg-light" id="firstnameInput" placeholder="Imię" required pattern="[A-Za-z0-9]{1,}"/>
+        <input type="text" autocomplete ="false" class="form-control bg-light" [(ngModel)]="firstname" placeholder="Imię"/>
         <br>
-        <input type="text" class="form-control bg-light" id="lastnameInput" placeholder="Nazwisko" required pattern="[A-Za-z0-9]{1,}"/>
+        <input type="text" autocomplete="false" class="form-control bg-light" [(ngModel)]="lastname" placeholder="Nazwisko"/>
         <br>
-        <input type="text" class="form-control bg-light" id="emailAddressInput" placeholder="Adres email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+        <input type="text" autocomplete="false" class="form-control bg-light" [(ngModel)]="emailAddress" placeholder="Adres email"/>
         <br>
         <div class="form-check">
             <input class="form-check-input" type="checkbox" id="termsCheck" required>
@@ -25,10 +29,10 @@
           </div>
           <br>  
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-success w-75">Zarejestruj się</button>
+            <button type="button" class="btn btn-success w-75" (click)="register()">Zarejestruj się</button>
         </div>
        
       
-    </form>
+      </div>
     </div>
 

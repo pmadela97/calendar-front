@@ -1,0 +1,47 @@
+<div class="bg-white rounded-3 p-3">
+    <div class="d-flex justify-content-between">
+        
+        <h4 *ngIf="isNew === true">Utwórz nowe wydarzenie</h4>
+        <h4 *ngIf="isNew === false">Edytuj wydarzenie: {{taskDto.taskId}}</h4>
+
+        <button type ="button" class="btn-close"(click)="dismissModal()"></button>
+    </div>
+    <div *ngIf="errorMessage !=''&& errorMessage !=null" class="alert alert-danger"  role="alert">
+        {{errorMessage}}
+       </div>
+       <div *ngIf="successMessage !='' && successMessage !=null" class="alert alert-success"  role="alert">
+        {{successMessage}}
+       </div>
+    <hr>
+    <ul class="list-group">
+        <li>
+            <label for="taskName">Nazwa wydarzenia*</label>
+            <input type="text" class="form-control mb-2" placeholder="Nazwa Wydarzenia" id="taskName" [(ngModel)] = "taskName"/>
+        </li>
+        <li>
+            <label for="startDate">Data rozpoczęcia*</label><br>
+            <input type="datetime-local" class="" id="startDate" [(ngModel)] = "startDate"/>
+            stardate {{startDate}}
+         </li>    
+         <li>
+            <label for="endDate">Data zakończenia*</label><br>
+            <input type="datetime-local" class="date" id="endDate" [(ngModel)] = "endDate"/>
+         </li>          
+         <li>
+            <label for="description">Opis</label>
+            <input type="text" class="form-control mb-2" placeholder="Opis" id="taskName" [(ngModel)] ="description"/>
+        </li>
+        <li>
+            *Pola wymagane
+        </li>
+    </ul>
+    <hr>
+    <div *ngIf="isNew === true">
+        <button class="btn btn-success"(click)="addNewTask()">Utwórz Wydarzenie</button>
+    </div>
+    <div *ngIf="isNew === false">
+        <button class="btn btn-info" (click) ="editTask()">Edytuj</button>
+
+    </div>
+</div>
+

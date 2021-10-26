@@ -1,0 +1,60 @@
+<div id = "userDetails" class="bg-white rounded-3 p-3">
+
+    <ul class="list-group">
+        <li class="list-group-item">Id użytkownika: {{userDto?.userId}}</li>
+        <li class="list-group-item">Nazwa użytkownika: {{userDto?.username}}</li>
+        <li class="list-group-item">Imię: {{userDto?.firstname}}</li>
+        <li class="list-group-item">Nazwisko: {{userDto?.lastname}}</li>
+        <li class="list-group-item">Adres email: {{userDto?.emailAddress}}</li>
+        <li class="list-group-item">Typ konta: {{userDto?.accountType}}</li>
+        <li class="list-group-item">Status: {{userDto?.accountStatus}}</li>
+        <hr>
+        <li class="list-group-item p-2">
+            <div class="btn-group" >
+            <button class="btn btn-outline-warning" data-bs-toggle="collapse" data-bs-target="#passwordFormContainer" aria-expanded="false" aria-controls="passwordFormContainer" role="button">Zmień hasło</button>
+            <button class="btn btn-outline-info" data-bs-toggle="collapse" data-bs-target="#emailFormContainer" aria-expanded="false" aria-controls="emailFormContainer" role="button">Zmień adres email</button>
+            <button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#blockFormContainer" aria-expanded="false" aria-controls="blockFormContainer" role="button">Zablokuj</button>
+            <button class="btn btn-outline-success" data-bs-toggle="collapse" data-bs-target="#unblockFormContainer" aria-expanded="false" aria-controls="unblockFormContainer" role="button">Odblokuj</button>
+            <button class="btn btn-outline-danger" data-bs-toggle="collapse" data-bs-target="#deleteFormContainer" aria-expanded="false" aria-controls="deleteFormContainer" role="button">Usuń</button>
+        </div>
+        </li>
+    </ul>
+
+        <div *ngIf="errorMessage !=''" id="errorLoginMessageContainer" class="alert alert-danger"  role="alert">
+            {{errorMessage}}
+           </div>
+        <div id="passwordFormContainer" class="collapse">
+            <form [formGroup]="passwordForm"(ngSubmit)="passwordForm.valid && changePassword()">
+                <input type="password" class="form-control mb-2" id="password1" placeholder="Hasło" formControlName = "password1" />
+                <input type="password" class="form-control mb-2" id="password2" placeholder="Hasło" formControlName = "password2" />
+            <button type ="submit" class="btn btn-success">Zmień Hasło</button>
+           
+            </form>
+        </div>
+        <div id="emailFormContainer" class="collapse">
+            <form [formGroup]="emailForm"(ngSubmit)="emailForm.valid && changeEmail()">
+                <input type="email" class="form-control mb-2" id="email1" placeholder="Adres email" formControlName = "email1" />
+                <input type="email" class="form-control mb-2" id="email2" placeholder="Powtórz adres email" formControlName = "email2" />
+            <button type ="submit" class="btn btn-success">Zmień adres email</button>
+            </form>
+        </div>
+        <div id="blockFormContainer" class="collapse">
+                <input type="text" class="form-control mb-2" id="usernameBlock" placeholder="Nazwa użytkownika" [(ngModel)] = "usernameBlock"/>
+            <button type ="click" (click) = "blockUser()" class="btn btn-success">Zablokuj użytkownika</button>
+        </div>
+        <div id="unblockFormContainer" class="collapse">
+            <input type="text" class="form-control mb-2" id="usernameUnblock" placeholder="Nazwa użytkownika" [(ngModel)] = "usernameUnblock"/>
+        <button type ="click" (click) = "unblockUser()" class="btn btn-success">Odblokuj użytkownika</button>
+    </div>
+        
+        <div id="deleteFormContainer" class="collapse">
+            <input type="text" class="form-control mb-2" id="usernameDelete" placeholder="Nazwa użytkownika" [(ngModel)] = "usernameDelete"/>
+        <button type ="click" (click) = "deleteUser()" class="btn btn-success">Usuń użytkownika</button>
+    </div>
+
+        
+        
+
+    
+</div>
+

@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark mb-5">
+  <div class="container-fluid">
+      <ul class="navbar-nav text-white">
+          <li class="nav-item">
+              <input class="form-check-input ms-2 me-2 border-white"  (change) ="reloadUserList()" type="checkbox" value="" checked="true" id="isActiveCheck" [(ngModel)]="isActive">
+              <label class="form-check-label" for="isActiveCheck">
+                  Aktywni
+                </label>                
+          </li>
+          <li class="nav-item">
+              <input class="form-check-input ms-2 me-2 border-white" (change) ="reloadUserList()" type="checkbox" value="" checked="true"id="isBlockedCheck" #isBlockedCheck [(ngModel)]="isBlocked">
+              <label class="form-check-label" for="isBlockedCheck">
+                  Zablokowani
+                </label>                
+          </li>
+          <li class="nav-item">
+              <input class="form-check-input ms-2 me-2 border-white" (change) ="reloadUserList()" type="checkbox" value="" checked="true" id="isExpiredCheck" #isExpiredCheck [(ngModel)]="isExpired">
+              <label class="form-check-label" for="isExpiredCheck">
+                  Wygaśnięci
+                </label>                
+          </li>
+          <li class="nav-item">
+              <input class="form-check-input ms-2 me-2 border-white" (change) ="reloadUserList()" type="checkbox" value="" checked="true" id="isUnconfirmedCheck" #isUnconfirmedCheck [(ngModel)]="isUnconfirmed">
+              <label class="form-check-label" for="isUnconfirmedCheck">
+                  Niepotwierdzeni
+                </label>                
+          </li>
+                  
+  
+      </ul>
+      <div class="d-flex me-2">
+          <input class="form-control me-2" type="search" [(ngModel)]="filterString" (input)="getFilteredUsers()" autofocus="" placeholder="Wyszukaj" aria-label="Search">
+      </div>  
+  </div>
+  </nav>
+  <div class="align-content-start">
+    <table class="table table-striped table-primary table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ID UŻYTKOWNIKA</th>
+              <th scope="col">NAZWA UŻYTKOWNIKA</th>
+              <th scope="col">IMIĘ</th>
+              <th scope="col">NAZWISKO</th>
+              <th scope="col">ADRES EMAIL</th>
+              <th scope="col">TYP KONTA</th>
+              <th scope="col">STATUS</th>
+              <th scope="col">SZCZEGÓŁY</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="this.userList">
+            <tr *ngFor="let any of this.userList let i = index">
+              <td>{{userList[i].userId}}</td>
+              <td>{{userList[i].username}}</td>
+              <td>{{userList[i].firstname}}</td>
+              <td>{{userList[i].lastname}}</td>
+              <td>{{userList[i].emailAddress}}</td>
+              <td>{{userList[i].accountType}}</td>
+              <td>{{userList[i].accountStatus}}</td>
+              <td><button class="btn btn-primary w-100" (click)="btnEditClick(i)"><i class="bi bi-info-square"></i></button></td>
+
+          </tr>
+</tbody>
+</table>
+
+
+
+</div>

@@ -1,1 +1,26 @@
-<p>user works!</p>
+<body class="min-vh-100 me-0 col-12 ">
+
+<nav class="navbar navbar-expand-lg bg-success navbar-light">
+    <div class="container-fluid">
+        <div class="display-6">
+            <a class="navbar-brand badge bg-light text-black" href="/user">calendar</a>
+        </div>
+        <ul class="navbar-nav me-auto">
+            <button class="btn btn-success border border-white me-1" type="button" (click)="getUserDetails()">Ustawienia</button>
+            <button class="btn btn-success border border-white" type="button" (click)="getTaskDetails(null,true)">Utwórz Wydarzenie</button>
+        </ul>
+        <div class="d-flex me-2">
+            <div class="h2">
+                <a class="navbar-brand badge bg-light text-black">Zalogowany jako: {{username}}</a>
+                <button class="btn btn-light" (click)="logout()" >Wyloguj</button>
+            </div>  
+        </div>  
+    </div>
+            
+    </nav>
+<app-task-list></app-task-list>
+
+
+</body>
+<app-footer></app-footer>
+

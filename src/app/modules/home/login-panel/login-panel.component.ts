@@ -4,6 +4,8 @@ import { Form, FormControl, FormGroup, NgForm, Validators } from '@angular/forms
 import { AuthenticationService } from '../../helpers/services/auth/authentication.service';
 import { ErrorInterceptor } from '../../helpers/interceptors/error.interceptor';
 import { Router } from '@angular/router';
+import { JwtService } from '../../helpers/services/auth/jwt-service';
+import { RegistrationPanelComponent } from '../registration-panel/registration-panel.component';
 
 @Component({
   selector: 'app-login-panel',
@@ -29,37 +31,42 @@ get passwordInput(){
 }
 
 
-  constructor(private modalService: NgbModal,private authService: AuthenticationService, private router: Router) {}
+  constructor(private modalService: NgbModal,private authService: AuthenticationService, private router: Router, private jwtService: JwtService) {}
     
-  openRegistrationPanel(content: any) {
-    this.modalService.open(content,{backdrop: 'static'});
+  openRegistrationPanel() {
+   let modal= this.modalService.open(RegistrationPanelComponent,{backdrop: 'static'});
   }
    
+  
   login(){
     this.authService.login(this.usernameInput?.value,this.passwordInput?.value).subscribe(
       (data)=>{
-        localStorage.setItem('jwttoken', data.jwttoken);
-              localStorage.setItem('firstname', JSON.stringify(data.firstname));
-              localStorage.setItem('lastname', JSON.stringify(data.lastname));
-              localStorage.setItem('accountType',data.accountType);
-
-
-
+        this.authService.saveToken(data.jwttoken);
       },
       (error)=>{
         switch(error.status){
         case 400:
+        case 403:
           this.errorMessage = "Nieprawidłowa nazwa użytkownika lub hasło";
           break;
         }
       },
       ()=>{
-        let value = localStorage.getItem('accountType');
-        console.log(value);
-        if(value === "USER")
-          this.router.navigate(["/user"]);
-        else if(value ==="ADMIN")
-          this.router.navigate(["/admin"]);
+        let token = this.authService.getToken();
+        if(token){
+          let type = this.jwtService.getAccountTypeFromToken(token);
+          let username = this.jwtService.getUsernameFromToken(token);
+          switch(type){
+            case 'USER':
+              this.router.navigate(['/user/']);
+              break;
+            case 'ADMIN':
+              this.router.navigate(['/admin']);
+              break;
+            default:
+              this.authService.logout()
+          }
+        }
 
       }
     );

@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow border border-secondary position-sticky">
+    <div class="container-fluid">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <input class="form-check-input ms-2 me-2 border-success bg-dark" type="checkbox" (change)="reloadTasksList()" checked [(ngModel)] ="isActive" >
+                <label class="form-check-label" for="isActiveCheck">Aktywne Wydarzenia</label>                
+            </li>
+            <li class="nav-item">
+                <input class="form-check-input ms-2 me-2 border-white bg-dark" type="checkbox" (change)="reloadTasksList()" checked [(ngModel)]="isExpired">
+                <label class="form-check-label" for="isActiveCheck">Przeterminowane Wydarzenia</label>                
+            </li>
+            <li class="nav-item">
+                <input class="form-check-input ms-2 me-2 border-white bg-dark" type="checkbox" (change)="reloadTasksList()" [(ngModel)]="isArchived">
+                <label class="form-check-label" for="isActiveCheck">Zarchiwizowane Wydarzenia</label>                
+            </li> 
+        </ul>
+        <div  class="d-flex me-2">
+          <form autocomplete="off">
+            
+          <input class="form-control me-2" type="search" id="serachTask" (input)="getFilteredTasks()" placeholder="Wyszukaj" autocomplete="false"  [(ngModel)] = "filter">
+        </form>
+        </div>      
+    </div>
+</nav>
+<br>
+<div class="col-12 d-flex justify-content-center">
+<div class="align-content-start col-sm-12 col-lg-10 rounded p-3 shadow overflow-auto">
+    <table class="table table-striped table-success table-hover table-bordered caption-top ">
+        <caption>Lista wydarzeń</caption>
+          <thead class="table-dark">
+            <tr class="">
+              <th scope="col" class="col-sm-2 col-lg-3 text-truncate">NAZWA WYDARZENIA</th>
+              <th scope="col" class="col-sm-2 col-lg-1 text-truncate">ROZPOCZĘCIE</th>
+              <th scope="col" class="col-sm-2 col-lg-1 text-truncate">ZAKOŃCZENIE</th>
+              <th scope="col" class="col-sm-2 col-lg-3 text-truncate" >OPIS</th>
+              <th scope="col" class="col-sm-2 col-lg-1 text-truncate">STATUS</th>
+              <th scope="col" class="col-sm-2 col-lg-2 text-truncate">INTERAKCJE</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="this.tasksList">
+            <tr *ngFor="let any of this.tasksList let i = index">
+              <td class="text-truncate">{{tasksList[i].taskName}}</td>
+              <td class="text-truncate">{{tasksList[i].startDateTime | date:'short'}}</td>
+              <td class="text-truncate">{{tasksList[i].endDateTime | date: 'short'}}</td>
+              <td class="text-truncate">{{tasksList[i].description}}</td>
+              <td class="text-truncate">{{tasksList[i].taskStatus}}</td>
+              <td>
+                  <div class=" overflow-auto">
+                <div class="btn-group">
+                    <button class="btn btn-primary" (click)="getTaskDetails(i)">Wyświetl</button>
+                    <button class="btn btn-danger" (click)=deleteTask(i)>Usuń</button>
+                   <button *ngIf="tasksList[i].taskStatus!='ARCHIVED'" class="btn btn-secondary"(click) = "archiveTask(i)">Archiwizuj</button>
+                   <button *ngIf="tasksList[i].taskStatus=='ARCHIVED'" class="btn btn-success" (click)="activateTask(i)">Atywuj</button>
+
+                  </div>
+                </div>
+                </td>    
+          </tr>
+          
+</tbody>
+</table>
+</div>
+</div>
+
