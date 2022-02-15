@@ -1,0 +1,61 @@
+<div class="bg-white rounded-3 p-3">
+    <div class="d-flex justify-content-between">
+        <h4>Ustawienia</h4>
+        <button type ="button" class="btn-close"(click)="dismissModal()"></button>
+    </div>
+    <div *ngIf="errorMessage !=''" class="alert alert-danger"  role="alert">
+        {{errorMessage}}
+       </div>
+       <div *ngIf="succesMessage !=''" class="alert alert-success"  role="alert">
+        {{succesMessage}}
+       </div>
+    <hr>
+    <ul class="list-group">
+        <li class="list-group-item">Nazwa użytkownika: {{userDetails?.username}}</li>
+        <li class="list-group-item">Imię: {{userDetails?.firstname}}</li>
+        <li class="list-group-item">Nazwisko: {{userDetails?.lastname}}</li>
+        <li class="list-group-item">Adres email: {{userDetails?.emailAddress}}</li>
+        <li class="list-group-item">Status: {{userDetails?.accountStatus}}</li>
+        <li class="list-group-item p-2">
+            <div class="btn-group" >
+                <button class="btn btn-outline-warning" data-bs-toggle="collapse" data-bs-target="#collapsePassword" aria-expanded="true" aria-controls="collapsePassword">Zmień hasło</button>
+                <button class="btn btn-outline-info" data-bs-toggle="collapse" data-bs-target="#collapseEmail" aria-expanded="true" aria-controls="collapseEmail">Zmień adres email</button>
+                <button class="btn btn-outline-danger" data-bs-toggle="collapse" data-bs-target="#collapseDelete" aria-expanded="false" aria-controls="collapseDelete">Usuń konto</button>
+            </div>
+            <hr>
+                <div id="collapsePassword" class="collapse">
+                    <h5>Zmień hasło</h5>
+                    Podaj hasło:
+                    <input type="password" class="form-control mb-2"  [(ngModel)] = "oldPassword"/>
+                    Podaj nowe hasło:
+                    <input type="password" class="form-control mb-2"  [(ngModel)] = "newPassword"/>
+                    Powtórz nowe hasło:
+                    <input type="password" class="form-control mb-2"  [(ngModel)] = "newRPassword"/>
+                    <br>
+                    <button type ="button" class="btn btn-success" (click)="changeUserPassword()">Zmień hasło</button>
+                    <br>
+                </div>
+                <div id="collapseEmail" class="collapse">
+                    <h5>Zmień adres email</h5>
+                    Podaj poprzedni adres email:
+                    <input type="email" class="form-control mb-2" [(ngModel)] = "oldEmail"/>
+                    Podaj nowy adres email:
+                    <input type="email" class="form-control mb-2"  [(ngModel)] = "newEmail"/>
+                    Powtórz nowy adres email:
+                    <input type="email" class="form-control mb-2"  [(ngModel)] = "newREmail"/>
+                    <br>
+                    <button type ="button" class="btn btn-success" (click)="changeUserEmail()">Zmień adres</button>
+                    <br>
+                </div>
+                <div id="collapseDelete" class="collapse">
+                    <h5>Usuń konto</h5>
+                    Podaj nazwę użytkownika w celu potwierdzenia:
+                    <input type="text" class="form-control mb-2" [(ngModel)] = "username"/>
+                    <button type ="button" class="btn btn-danger" (click)="deleteUserAccount()">Usuń</button>
+                    <br>
+                </div>
+          
+        </li>
+    </ul>
+</div>
+

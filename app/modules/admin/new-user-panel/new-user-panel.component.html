@@ -1,0 +1,30 @@
+<div id = "new-user-panel" class="bg-white rounded-3 p-3">
+    <div class="d-flex justify-content-between">
+        <h4>Zarejestruj się</h4>
+        <button type ="button" class="btn-close" (click)='closeRegistrationPanel()'></button>
+    </div>
+    <hr>
+    <div *ngIf="errorMessage !=''" id="errorLoginMessageContainer" class="alert alert-danger"  role="alert">
+        {{errorMessage}}
+       </div>
+    <form [formGroup]="userForm"(ngSubmit)="createUser()">
+        <div id="errorMessageContainer" class="alert alert-danger visually-hidden" role="alert">    
+        </div>
+        <input type="text" class="form-control" id="usernameInput" formControlName = "usernameInput" placeholder="Nazwa użytkownika" required pattern="[A-Za-z0-9]{8,16}" title="Musi zawierać co najmniej 8 znaków, maksymalnie 16, i nie zawierać znaków szczególnych"/>
+        <br>
+        <input type="password" class="form-control" id="passwordInput" formControlName = "passwordInput" placeholder="Hasło" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" required title="Musi zawierać co najmniej jedną cyfrę, jedną wielką i małą literę, jeden znak szczególny oraz posiadać co najmniej 8 znaków, maksymalnie 16." />
+        <br>
+        <input type="text" class="form-control bg-light" id="firstnameInput" formControlName = "firstnameInput" placeholder="Imię" required pattern="[A-Za-z0-9]{1,}"/>
+        <br>
+        <input type="text" class="form-control bg-light" id="lastnameInput"  formControlName = "lastnameInput"placeholder="Nazwisko" required pattern="[A-Za-z0-9]{1,}"/>
+        <br>
+        <input type="text" class="form-control bg-light" id="emailAddressInput" formControlName = "emailAddressInput" placeholder="Adres email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+        <br>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-success w-75">Utwórz użytkownika</button>
+        </div>
+       
+      
+    </form>
+    </div>
+
